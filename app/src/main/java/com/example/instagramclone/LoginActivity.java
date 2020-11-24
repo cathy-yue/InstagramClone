@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -49,13 +50,35 @@ public class LoginActivity extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goSignUpActivity();
+                Log.i(TAG, "onClick sign up button");
+                String username = etUsername.getText().toString();
+                String password = etPassword.getText().toString();
+                signInUser(username, password);
             }
         });
     }
 
+    private void signInUser(final String username, final String password){
+        Log.i(TAG,"Attempting to create user " + username);
+        // Create the ParseUser
+        ParseUser user = new ParseUser();
+        // Set core properties
+        user.setUsername(username);
+        user.setPassword(password);
+        // Invoke signUpInBackground
+        user.signUpInBackground(new SignUpCallback() {
+            public void done(ParseException e) {
+                if (e == null) {
+                    Log.i(TAG, "user created: " + username);
+                    loginUser(username, password);
+                } else {
+                    Log.e(TAG,"issue with signUp", e);
+                }
+            }
+        });
+    }
     private void loginUser(String username, String password){
-        Log.i(TAG,"Attempting to login user" + username);
+        Log.i(TAG,"Attempting to login user " + username);
 
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
@@ -75,12 +98,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private void goMainActivity(){
         Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
-        finish();
-    }
-
-    private void goSignUpActivity(){
-        Intent i = new Intent(this, SignUpActivity.class);
         startActivity(i);
         finish();
     }

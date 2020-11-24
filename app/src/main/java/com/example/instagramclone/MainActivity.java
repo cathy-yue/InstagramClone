@@ -1,9 +1,5 @@
 package com.example.instagramclone;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,6 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -63,14 +62,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String description = etDescription.getText().toString();
+                Log.i(TAG,"Attempting to sumbmit the post");
                 if (description.isEmpty()){
+                    Log.i(TAG,"Description is empty");
                     Toast.makeText(MainActivity.this,"description cannot be empty", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (photoFile == null || ivPostImage.getDrawable() == null){
+                    Log.i(TAG,"There is no image");
                     Toast.makeText(MainActivity.this,"There is no image!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                Log.i(TAG,"hi");
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 savePost(description,currentUser, photoFile);
             }
