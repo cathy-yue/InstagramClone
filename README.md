@@ -27,10 +27,10 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://recordit.co/kJ8kiTHMxR.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src="https://recordit.co/DQYGVP6lAV.gif", width=400 />
 
 ## Notes
-
+System takes a while to login. I wish there were video walkthroughs for all the required stories. That would be super helpful since I never figured out why my sign up wasn't working but regardless I learned a lot.
 
 ## Open-source libraries used
 
