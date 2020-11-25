@@ -75,23 +75,23 @@ public class LoginActivity extends AppCompatActivity {
                     Log.e(TAG,"issue with signUp", e);
                 }
             }
-        });
+        }); 
     }
-    private void loginUser(String username, String password){
-        Log.i(TAG,"Attempting to login user " + username);
-
+    private void loginUser(String username, String password) {
+        Log.i(TAG, "Attempting to Log In User: " + username);
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
-                if (user != null){
-                    //Add better error handling later
-                    Log.e(TAG, "Issue with login");
+                if(e != null) {
+                    // better error handling
+                    Log.e(TAG, "User authentication failed", e);
                     Toast.makeText(LoginActivity.this, "Issue with Login", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                //Navigate to the main activity if the user has signed in properly
+                // navigate to the main activity if the user has signed in properly
                 goMainActivity();
-                Toast.makeText(LoginActivity.this,"Success!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Logged In", Toast.LENGTH_SHORT).show();
+                Log.i(TAG, "User has been authenticated and signed in.");
             }
         });
     }
